@@ -21,9 +21,13 @@ add_subdirectory(dsp)
 add_executable(src main.cpp)
 #上述方法有问题，这种方法才有效
 
+FIND_LIBRARY(UHDLIB_LIBRARY libuhd.so)
+message("uhd_path: ${UHDLIB_LIBRARY}")
+
 LINK_LIBRARIES("/usr/lib/x86_64-linux-gnu/libboost_system.so")
 LINK_LIBRARIES("/usr/lib/x86_64-linux-gnu/libfftw3.so")
-LINK_LIBRARIES("/usr/lib/x86_64-linux-gnu/libuhd.so")
+#LINK_LIBRARIES("/usr/lib/x86_64-linux-gnu/libuhd.so")
+LINK_LIBRARIES("${UHDLIB_LIBRARY}")
 
 target_link_libraries(src app dsp)
 #将多目录下的hello库和world库链接上可执行文件src.o
